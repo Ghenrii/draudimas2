@@ -1,0 +1,35 @@
+{
+    "Logout": "Atsijungti",
+    "Forgot your password?": "Pamiršote slaptažodį",
+    "Remember me": "Prisiminti mane",
+    "Email": "Paštas",
+    "Log in": "Prisijungti",
+    "Register": "Registruotis",
+    "Dashboard": "Pagrindinis",
+    "Name": "Vardas",
+    "Password": "Slaptažodis",
+    "Confirm Password": "Pakartokite slaptažodį",
+    "Already registered?": "Jau užregistruotas?",
+    "Car": "Mašinos",
+    "Owner": "Savininkai",
+    "edit": "Redaguoti",
+    "delete": "Ištrinti",
+    "submit": "Pateikti",
+    "Language": "Kalba",
+    "cars": {
+        "add_new": "Pridėti naują automobilį",
+        "reg_numb": "Registracijos numeris",
+        "brand": "Markė",
+        "model": "Modelis",
+        "owner_id":"Savininko id"
+    },
+    "owners": {
+        "add_new": "Pridėti naują savininką",
+        "name": "Vardas",
+        "surname": "Pavardė",
+        "address": "Adresas",
+        "phone": "Telefonas",
+        "email":"Paštas",
+        "cars":"Mašinos"
+    }
+}

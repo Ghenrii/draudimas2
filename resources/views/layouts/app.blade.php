@@ -18,6 +18,13 @@
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @php
+        $available_locales = [
+            'English' => 'en',
+            'Lietuvių' => 'lt',
+        ];
+        $current_locale = app()->getLocale();
+    @endphp
 </head>
 <body>
     <div id="app">
@@ -34,15 +41,32 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('owners.index') }}">Savininkai</a>
+                            <a class="nav-link" href="{{ route('owners.index') }}">{{ __('Owner') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('cars.index') }}">Mašinos</a>
+                            <a class="nav-link" href="{{ route('cars.index') }}">{{ __('Car') }}</a>
                         </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLanguage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ __('Language') }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownLanguage">
+                            @foreach($available_locales as $locale_name => $available_locale)
+                                <li>
+                                    @if($available_locale === $current_locale)
+                                        <span class="dropdown-item active">{{ $locale_name }}</span>
+                                    @else
+                                        <a class="dropdown-item" href="{{ route('lang.switch', $available_locale) }}">{{ $locale_name }}</a>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
+
+                    </li>
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))

@@ -8,48 +8,54 @@
                     {{session('success')}}
                 </div>
             @endif
+            @if(session()->has('error'))
+                <div class="p-3 text-white bg-danger border border-dark rounded-3">
+                    {{session('error')}}
+                </div>
+            @endif
         </div>
         <div class="card">
             <div class="card-body">
-                <a href="{{ route('owners.create') }}" class="btn btn-info">Pridėti naują savininką</a>
+                @if(Auth::user()->role === 'admin')
+                <a href="{{ route('owners.create') }}" class="btn btn-info">{{ __('owners')['add_new'] }}</a>
+                @endif
                 <hr>
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Vardas</th>
-                            <th>Pavardė</th>
-                            <th>Telefonas</th>
-                            <th>Email</th>
-                            <th>Adresas</th>
-                            <th>Mašinos</th>
+                            <th>{{ __('owners')['name'] }}</th>
+                            <th>{{ __('owners')['surname'] }}</th>
+                            <th>{{ __('owners')['phone'] }}</th>
+                            <th>{{ __('owners')['email'] }}</th>
+                            <th>{{ __('owners')['address'] }}</th>
+                            <th>{{ __('owners')['cars'] }}</th>
+                            @if(Auth::user()->role === 'admin')
                             <th colspan="2"></th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($owners as $owner)
                             <tr>
-                                <td>{{ $owner->id }}</td>
-                                <td>{{ $owner->name }}</td>
-                                <td>{{ $owner->surname }}</td>
-                                <td>{{ $owner->phone }}</td>
-                                <td>{{ $owner->email }}</td>
-                                <td>{{ $owner->address }}</td>
+                                [[owner_{{ $owner->id }}]]
                                 <td>
                                     @foreach($owner->cars as $car)
                                         {{ $car->brand }} - {{ $car->model }} <br>
                                     @endforeach
                                 </td>
+                                @if(Auth::user()->role === 'admin')
                                 <td style="width: 100px;">
-                                    <a href="{{ route('owners.edit', $owner) }}" class="btn btn-success">Redaguoti</a>
+                                    <a href="{{ route('owners.edit', $owner) }}" class="btn btn-success">{{ __('edit') }}</a>
                                 </td>
                                 <td style="width: 100px;">
                                     <form method="post" action="{{ route('owners.destroy', $owner) }}">
                                         @csrf
                                         @method("delete")
-                                        <button class="btn btn-danger">Ištrinti</button>
+                                        <button class="btn btn-danger">{{ __('delete') }}</button>
                                     </form>
                                 </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>

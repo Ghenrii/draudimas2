@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Owner;
@@ -13,9 +14,11 @@ class OwnerController extends Controller
         return view('owners.index', ['owners' => $owners]);
     }
     public function create(){
+
         return view('owners.create');
     }
     public function store(Request $request){
+        
         $data = $request->validate([
             'name' => 'required',
             'surname' => 'required',
@@ -33,9 +36,11 @@ class OwnerController extends Controller
         return redirect(route('owners.index'))->with('success', 'Pridėta');
     }
     public function edit(Owner $owner){
+
         return view('owners.edit', ['owner' => $owner]);
     }
     public function update(Owner $owner, Request $request){
+
         $data = $request->validate([
             'name' => 'required',
             'surname' => 'required',
@@ -56,7 +61,7 @@ class OwnerController extends Controller
 
         $owner->cars()->delete();
 
-        $owner->delete($owner);
+        $owner->delete();
 
         return redirect(route('owners.index'))->with('success', 'Ištrinta');
     }

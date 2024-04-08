@@ -8,40 +8,47 @@
                     {{session('success')}}
                 </div>
             @endif
+            @if(session()->has('error'))
+                <div class="p-3 text-white bg-danger border border-dark rounded-3">
+                    {{session('error')}}
+                </div>
+            @endif
         </div>
         <div class="card">
             <div class="card-body">
-                <a href="{{ route('cars.create') }}" class="btn btn-info">Pridėti naują mašiną</a>
+                @if(Auth::user()->role === 'admin')
+                <a href="{{ route('cars.create') }}" class="btn btn-info">{{ __('cars')['add_new'] }}</a>
+                @endif
                 <hr>
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Registracijos numeris</th>
-                            <th>Markė</th>
-                            <th>Modelis</th>
-                            <th>Savininko ID</th>
+                            <th>{{ __('cars')['reg_numb'] }}</th>
+                            <th>{{ __('cars')['brand'] }}</th>
+                            <th>{{ __('cars')['model'] }}</th>
+                            <th>{{ __('cars')['owner_id'] }}</th>
+                            @if(Auth::user()->role === 'admin')
                             <th colspan="2"></th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($cars as $car)
                             <tr>
-                                <td>{{ $car->id }}</td>
-                                <td>{{ $car->reg_number }}</td>
-                                <td>{{ $car->brand }}</td>
-                                <td>{{ $car->model }}</td>
-                                <td>{{ $car->owner_id }}</td>
+                                [[car_{{ $car->id }}]]
+                                @if(Auth::user()->role === 'admin')
                                 <td style="width: 100px;">
-                                    <a href="{{ route('cars.edit', $car) }}" class="btn btn-success">Redaguoti</a>
+                                    <a href="{{ route('cars.edit', $car) }}" class="btn btn-success">{{ __('edit') }}</a>
                                 </td>
                                 <td style="width: 100px;">
                                     <form method="post" action="{{ route('cars.destroy', $car) }}">
                                         @csrf
                                         @method("delete")
-                                        <button class="btn btn-danger">Ištrinti</button>
+                                        <button class="btn btn-danger">{{ __('delete') }}</button>
                                     </form>
                                 </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>

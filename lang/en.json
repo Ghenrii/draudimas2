@@ -1,0 +1,36 @@
+{
+    "Logout": "Logout",
+    "Forgot your password?": "Forgot your password?",
+    "Remember me": "Remember me",
+    "Email": "Email",
+    "Log in": "Log in",
+    "Register": "Register",
+    "Dashboard": "Dashboard",
+    "Name": "Name",
+    "Password": "Password",
+    "Confirm Password": "Confirm Password",
+    "Already registered?": "Already registered?",
+    "Car": "Cars",
+    "Owner": "Owners",
+    "edit": "Edit",
+    "delete": "Delete",
+    "submit": "Submit",
+    "Language": "Language",
+    "reg_number": "Registration number",
+    "cars": {
+        "add_new": "Add new car",
+        "reg_numb": "Registration number",
+        "brand": "Brand",
+        "model": "Model",
+        "owner_id":"Owners id"
+    },
+    "owners": {
+        "add_new": "Add new owner",
+        "name": "Name",
+        "surname": "Surname",
+        "address": "Address",
+        "phone": "Phone",
+        "email":"Email",
+        "cars":"Cars"
+    }
+}
