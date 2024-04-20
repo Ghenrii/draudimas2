@@ -33,7 +33,7 @@ class OwnerController extends Controller
 
         $newOwner = Owner::create($data);
 
-        return redirect(route('owners.index'))->with('success', 'Pridėta');
+        return redirect(route('owners.index'))->with('success', trans('Added'));
     }
     public function edit(Owner $owner){
 
@@ -55,7 +55,7 @@ class OwnerController extends Controller
 
         $owner->update($data);
 
-        return redirect(route('owners.index'))->with('success', 'Atnaujinta');
+        return redirect(route('owners.index'))->with('success', trans('Updated'));
     }
     public function destroy(Owner $owner){
 
@@ -63,6 +63,6 @@ class OwnerController extends Controller
 
         $owner->delete();
 
-        return redirect(route('owners.index'))->with('success', 'Ištrinta');
+        return redirect(route('owners.index'))->with('success', trans('Deleted'));
     }
 }

@@ -14,7 +14,7 @@
                 </div>
             @endif
         </div>
-        <div class="card">
+        <div class="card" style="min-width:870px">
             <div class="card-body">
                 @if(Auth::user()->role === 'admin')
                 <a href="{{ route('cars.create') }}" class="btn btn-info">{{ __('cars')['add_new'] }}</a>
@@ -28,6 +28,8 @@
                             <th>{{ __('cars')['brand'] }}</th>
                             <th>{{ __('cars')['model'] }}</th>
                             <th>{{ __('cars')['owner_id'] }}</th>
+                            <th>{{ __('cars')['num_of_pict'] }}</th>
+                            <th colspan="1"></th>
                             @if(Auth::user()->role === 'admin')
                             <th colspan="2"></th>
                             @endif
@@ -37,6 +39,9 @@
                         @foreach($cars as $car)
                             <tr>
                                 [[car_{{ $car->id }}]]
+                                <td style="width: 100px;">
+                                    <a href="{{ route('cars.images.store', $car) }}" class="btn btn-info">{{ __('images') }}</a>
+                                </td>
                                 @if(Auth::user()->role === 'admin')
                                 <td style="width: 100px;">
                                     <a href="{{ route('cars.edit', $car) }}" class="btn btn-success">{{ __('edit') }}</a>

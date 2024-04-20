@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container p-4">
-    <form method="POST" action="{{route('cars.update', ['car' => $car])}}">
+    <form method="POST" action="{{route('cars.update', ['car' => $car])}}" enctype="multipart/form-data">
             @csrf
             @method('put')
             <div class="mb-3">
@@ -25,10 +25,29 @@
                 @error('model')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
-            </div><div class="mb-3">
+            </div>
+            <div class="mb-3">
                 <label for="owner_id" class="form-label">{{ __('cars')['owner_id'] }}</label>
                 <input type="number" class="form-control" id="owner_id" name="owner_id" value="{{$car->owner_id}}">
                 @error('owner_id')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <div class="row">
+                    @foreach ($carImages as $image)
+                    <div class="col-md-3 mb-3">
+                        <div class="card">
+                            <img src="{{ asset('storage/'.$image->image_path) }}" class="card-img-top img-fluid" alt="Car Image">
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">{{ __('car_images')['pictures'] }}</label>
+                <input type="file" class="form-control" id="image" name="image">
+                @error('image')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>

@@ -53,12 +53,15 @@ class ShortCodeMiddleware
 
         $car = Car::find($carId);
 
+        $imagesCount = $car->images()->count();
+
         if ($car) {
             $replacement = "<td>$car->id</td>"
                          . "<td>$car->reg_number</td>"
                          . "<td>$car->brand</td>"
                          . "<td>$car->model</td>"
-                         . "<td>$car->owner_id</td>";
+                         . "<td>$car->owner_id</td>"
+                         . "<td>$imagesCount</td>";
 
             $content = str_replace($shortcode, $replacement, $content);
         }

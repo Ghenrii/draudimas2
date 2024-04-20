@@ -1,4 +1,7 @@
 {
+    "Added" : "Pridėta",
+    "Updated" : "Atnaujinta",
+    "Deleted" : "Ištrinta",
     "Logout": "Atsijungti",
     "Forgot your password?": "Pamiršote slaptažodį",
     "Remember me": "Prisiminti mane",
@@ -16,12 +19,17 @@
     "delete": "Ištrinti",
     "submit": "Pateikti",
     "Language": "Kalba",
+    "images": "Nuotraukos",
+    "car_images": {
+        "pictures": "Nuotraukos"
+    },
     "cars": {
         "add_new": "Pridėti naują automobilį",
         "reg_numb": "Registracijos numeris",
         "brand": "Markė",
         "model": "Modelis",
-        "owner_id":"Savininko id"
+        "owner_id":"Savininko id",
+        "num_of_pict": "Nuotraukos"
     },
     "owners": {
         "add_new": "Pridėti naują savininką",

@@ -1,4 +1,7 @@
-{
+{   
+    "Added" : "Added",
+    "Updated" : "Updated",
+    "Deleted" : "Deleted",
     "Logout": "Logout",
     "Forgot your password?": "Forgot your password?",
     "Remember me": "Remember me",
@@ -17,12 +20,18 @@
     "submit": "Submit",
     "Language": "Language",
     "reg_number": "Registration number",
+    "images": "Pictures",
+    "car_images": {
+        "pictures": "Pictures"
+    },
     "cars": {
         "add_new": "Add new car",
         "reg_numb": "Registration number",
         "brand": "Brand",
         "model": "Model",
-        "owner_id":"Owners id"
+        "owner_id":"Owners id",
+        "pictures": "Images",
+        "num_of_pict": "Pictures"
     },
     "owners": {
         "add_new": "Add new owner",

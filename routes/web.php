@@ -3,6 +3,7 @@
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\CarImageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,6 +22,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/owners', [OwnerController::class, 'store'])->name('owners.store');
     Route::get('/cars', [CarController::class, 'index'])->name('cars.index');
     Route::post('/cars', [CarController::class, 'store'])->name('cars.store');
+    Route::get('/cars/{car}/images', [CarImageController::class, 'index'])->name('cars.images.index');
+    Route::post('/cars/{car}/images', [CarImageController::class, 'store'])->name('cars.images.store');
+
 
     Route::middleware(['admin'])->group(function () {
         Route::get('/owners/create', [OwnerController::class, 'create'])->name('owners.create');
@@ -32,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/cars/{car}/edit', [CarController::class, 'edit'])->name('cars.edit');
         Route::put('/cars/{car}', [CarController::class, 'update'])->name('cars.update');
         Route::delete('/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy');
+        Route::delete('/cars/images/{image}', [CarImageController::class, 'destroy'])->name('cars.images.destroy');
     });
 
     Route::get('/dashboard', function () {

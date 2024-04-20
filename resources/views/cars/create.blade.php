@@ -25,7 +25,8 @@
                 @error('model')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
-            </div><div class="mb-3">
+            </div>
+            <div class="mb-3">
                 <label for="owner_id" class="form-label">{{ __('cars')['owner_id'] }}</label>
                 <input type="number" class="form-control" id="owner_id" name="owner_id" value="{{ old('owner_id') }}">
                 @error('owner_id')
