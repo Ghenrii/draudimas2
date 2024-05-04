@@ -43,4 +43,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function owners()
+    {
+        return $this->hasMany(Owner::class, 'user_id');
+    }
+
+    public function isAdmin(){
+        return $this->role == 'admin';
+    }
+
+    public function isReadingUser(){
+        return $this->role == 'reading';
+    }
+
+    public function isNormalUser(){
+        return $this->role == 'normal';
+    }
 }

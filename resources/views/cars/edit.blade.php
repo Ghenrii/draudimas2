@@ -28,7 +28,16 @@
             </div>
             <div class="mb-3">
                 <label for="owner_id" class="form-label">{{ __('cars')['owner_id'] }}</label>
-                <input type="number" class="form-control" id="owner_id" name="owner_id" value="{{$car->owner_id}}">
+                <select id="owner_id" name="owner_id" class="form-control">
+                    <option value="{{ $car->owner_id }}">{{ $car->owner_id }} ({{ $car->owner->name}})</option>
+                    @foreach($owners as $owner)
+                        @if($owner->id != $car->owner_id)
+                            <option value="{{ $owner->id }}">
+                                {{ $owner->id }} ({{ $owner->name }})
+                            </option>
+                        @endif
+                    @endforeach
+                </select>
                 @error('owner_id')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror

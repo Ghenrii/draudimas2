@@ -16,9 +16,7 @@
         </div>
         <div class="card" style="min-width:870px">
             <div class="card-body">
-                @if(Auth::user()->role === 'admin')
                 <a href="{{ route('cars.create') }}" class="btn btn-info">{{ __('cars')['add_new'] }}</a>
-                @endif
                 <hr>
                 <table class="table table-striped table-hover">
                     <thead>
@@ -30,22 +28,28 @@
                             <th>{{ __('cars')['owner_id'] }}</th>
                             <th>{{ __('cars')['num_of_pict'] }}</th>
                             <th colspan="1"></th>
-                            @if(Auth::user()->role === 'admin')
                             <th colspan="2"></th>
-                            @endif
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($cars as $car)
                             <tr>
                                 [[car_{{ $car->id }}]]
+                                @can('update', $car)
                                 <td style="width: 100px;">
                                     <a href="{{ route('cars.images.store', $car) }}" class="btn btn-info">{{ __('images') }}</a>
                                 </td>
-                                @if(Auth::user()->role === 'admin')
+                                @else
+                                <td></td>
+                                @endcan
+                                @can('update', $car)
                                 <td style="width: 100px;">
                                     <a href="{{ route('cars.edit', $car) }}" class="btn btn-success">{{ __('edit') }}</a>
                                 </td>
+                                @else
+                                <td></td>
+                                @endcan
+                                @can('delete', $car)
                                 <td style="width: 100px;">
                                     <form method="post" action="{{ route('cars.destroy', $car) }}">
                                         @csrf
@@ -53,7 +57,9 @@
                                         <button class="btn btn-danger">{{ __('delete') }}</button>
                                     </form>
                                 </td>
-                                @endif
+                                @else
+                                <td></td>
+                                @endcan
                             </tr>
                         @endforeach
                     </tbody>

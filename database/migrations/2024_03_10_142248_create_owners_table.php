@@ -15,6 +15,7 @@ class CreateOwnersTable extends Migration
             $table->string('phone');
             $table->string('email')->unique();
             $table->string('address');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

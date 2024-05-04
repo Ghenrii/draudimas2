@@ -16,9 +16,7 @@
         </div>
         <div class="card">
             <div class="card-body">
-                @if(Auth::user()->role === 'admin')
                 <a href="{{ route('owners.create') }}" class="btn btn-info">{{ __('owners')['add_new'] }}</a>
-                @endif
                 <hr>
                 <table class="table table-striped table-hover">
                     <thead>
@@ -30,9 +28,7 @@
                             <th>{{ __('owners')['email'] }}</th>
                             <th>{{ __('owners')['address'] }}</th>
                             <th>{{ __('owners')['cars'] }}</th>
-                            @if(Auth::user()->role === 'admin')
                             <th colspan="2"></th>
-                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -44,10 +40,14 @@
                                         {{ $car->brand }} - {{ $car->model }} <br>
                                     @endforeach
                                 </td>
-                                @if(Auth::user()->role === 'admin')
+                                @can('update', $owner)
                                 <td style="width: 100px;">
                                     <a href="{{ route('owners.edit', $owner) }}" class="btn btn-success">{{ __('edit') }}</a>
                                 </td>
+                                @else
+                                <td></td>
+                                @endcan
+                                @can('delete', $owner)
                                 <td style="width: 100px;">
                                     <form method="post" action="{{ route('owners.destroy', $owner) }}">
                                         @csrf
@@ -55,7 +55,9 @@
                                         <button class="btn btn-danger">{{ __('delete') }}</button>
                                     </form>
                                 </td>
-                                @endif
+                                @else
+                                <td></td>
+                                @endcan
                             </tr>
                         @endforeach
                     </tbody>

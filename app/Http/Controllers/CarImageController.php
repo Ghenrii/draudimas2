@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
@@ -12,12 +13,14 @@ class CarImageController extends Controller
 {
     public function index(Car $car)
     {
+        $this->authorize('view', [CarImage::class, $car]);
         $images = $car->images;
         return view('car_images.index', ['car' => $car, 'images' => $images]);
     }
 
     public function store(Request $request, Car $car)
     {
+        $this->authorize('create', [CarImage::class, $car]);
         $request->validate([
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -39,6 +42,7 @@ class CarImageController extends Controller
 
     public function destroy(CarImage $image)
     {
+        $this->authorize('delete', $image);
         $filePath = "storage/{$image->image_path}";
 
         if (File::exists($filePath)) {

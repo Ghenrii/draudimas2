@@ -10,7 +10,7 @@ class OwnersAndCarsSeeder extends Seeder
 {
     public function run()
     {
-        $owners = Owner::factory(100)->create();
+        $owners = Owner::factory(10)->create();
 
         $owners->each(function ($owner) {
             Car::factory(rand(1, 3))->create(['owner_id' => $owner->id]);

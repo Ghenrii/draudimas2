@@ -13,7 +13,7 @@ class CreateCarsTable extends Migration
             $table->string('reg_number')->unique();
             $table->string('brand');
             $table->string('model');
-            $table->foreignId('owner_id')->constrained('owners');
+            $table->foreignId('owner_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

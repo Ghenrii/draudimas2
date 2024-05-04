@@ -13,19 +13,25 @@ class CarController extends Controller
 {
     public function index()
     {
-        $cars = Car::all();
+        if (Auth::user()->isAdmin() || Auth::user()->isReadingUser()) {
+            $cars = Car::all();
+        } else {
+            $cars = Car::whereHas('owner', function ($query) {
+                $query->where('user_id', Auth::id());
+            })->get();
+        }
+
         return view('cars.index', ['cars' => $cars]);
     }
 
     public function create()
     {
-
-        return view('cars.create');
+        $owners = Owner::where('user_id', Auth::id())->get();
+        return view('cars.create', compact('owners'));
     }
 
     public function store(Request $request)
     {
-
         $data = $request->validate([
             'reg_number' => 'required|unique:cars|regex:/^[A-Z0-9]{6}$/',
             'brand' => 'required',
@@ -40,15 +46,18 @@ class CarController extends Controller
 
     public function edit(Car $car)
     {
+        $this->authorize('update', $car);
+
         $carImages = $car->images;
 
-        return view('cars.edit', compact('car', 'carImages'));
+        $owners = Owner::where('user_id', Auth::id())->get();
+
+        return view('cars.edit', compact('car', 'carImages', 'owners'));
     }
 
 
     public function update(Request $request, Car $car)
     {
-
         $data = $request->validate([
             'reg_number' => 'required|unique:cars,reg_number,' . $car->id,
             'brand' => 'required',
@@ -79,6 +88,8 @@ class CarController extends Controller
 
     public function destroy(Car $car)
     {
+        $this->authorize('delete', $car);
+
         $carImages = $car->images;
 
         foreach ($carImages as $carImage) {
@@ -87,17 +98,6 @@ class CarController extends Controller
         $car->delete();
 
         return redirect(route('cars.index'))->with('success', trans('Deleted'));
-    }
-
-    protected function deleteCarImage(CarImage $carImage)
-    {
-        $filePath = storage_path("app/public/{$carImage->image_path}");
-
-        if (File::exists($filePath)) {
-            File::delete($filePath);
-        }
-
-        $carImage->delete();
     }
 }
 
